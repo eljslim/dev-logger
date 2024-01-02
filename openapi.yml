@@ -1,0 +1,66 @@
+---
+openapi: 3.0.2
+info:
+  title: ticket
+  version: 1.0.0
+  description: Gestion des tickets
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+paths:
+  /ticket:
+    get:
+      parameters:
+      - name: ticketId
+        description: ""
+        schema:
+          type: string
+        in: query
+        required: true
+      - name: masterticketid
+        description: ""
+        schema: {}
+        in: query
+      responses:
+        "200":
+          $ref: '#/components/responses/detail'
+        "400":
+          description: bad request error
+      summary: rechercher des tickets
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+        required: true
+      responses:
+        "400":
+          description: Bad requet error
+        "201":
+          description: created
+      summary: ajouter un ticket
+components:
+  schemas:
+    Ticket:
+      description: ""
+      required:
+      - ticketId
+      type: object
+      properties:
+        ticketId:
+          description: id du ticket
+          type: string
+        urlid:
+          description: urlid du contrat lié au ticket
+          type: string
+      example:
+      - ticketId: "123456"
+        urlid: XXXXXX
+  responses:
+    detail:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Ticket'
+      description: ""
